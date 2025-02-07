@@ -10,15 +10,23 @@ class Pesaswap
 {
     use PesaswapHelper;
 
+    public  $base_url;
+    public $base_url_csharp;
+
+    public $api_key;
+    public $consumer_key;
     public function __construct()
     {
-        $this->base_url = env('PESASWAP_ENV') == 'live'
+        $this->base_url = config('pesaswap.environment') == 'live'
             ? 'https://www.pesaswap.com'
             : 'https://devpesaswap.azurewebsites.net';
 
-        $this->base_url_csharp = env('PESASWAP_ENV') == 'live'
+        $this->base_url_csharp = config('pesaswap.environment') == 'live'
             ? 'https://api.pesaswap.com'
             : 'https://devpesaswap-csharp.azurewebsites.net';
+
+        $this->api_key = config('pesaswap.api_key');
+        $this->consumer_key = config('pesaswap.consumer_key');
 
     }
 
@@ -27,8 +35,8 @@ class Pesaswap
         $url = $this->base_url . '/api/pesaswap/create/customer';
 
         $data = [
-            'api_key' => env('PESASWAP_API_KEY'),
-            'consumer_key' => env('PESASWAP_CONSUMER_KEY'),
+            'api_key' => config('pesaswap.api_key'),
+            'consumer_key' => config('pesaswap.consumer_key'),
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,
@@ -38,7 +46,7 @@ class Pesaswap
             'state' => $state,
             'country' => $country,
             'external_id' => $external_id,
-            'environment' => env('PESASWAP_ENV'),
+            'environment' => config('pesaswap.environment'),
         ];
 
         $response = Http::post($url, $data);
@@ -51,8 +59,8 @@ class Pesaswap
         $url = $this->base_url . '/api/regular/card-payment';
 
         $data = [
-            'api_key' => env('PESASWAP_API_KEY'),
-            'consumer_key' => env('PESASWAP_CONSUMER_KEY'),
+            'api_key' => config('pesaswap.api_key'),
+            'consumer_key' => config('pesaswap.consumer_key'),
             'currency' => $currency,
             'amount' => $amount,
             'expiry_date' => $expiry_date,
@@ -60,7 +68,7 @@ class Pesaswap
             'credit_card_number' => $credit_card_number,
             'external_id' => $external_id,
             'transaction_external_id' => $transaction_external_id,
-            'environment' => env('PESASWAP_ENV'),
+            'environment' => config('pesaswap.environment'),
         ];
 
         $response = Http::post($url, $data);
@@ -140,8 +148,8 @@ class Pesaswap
         $url = $this->base_url . '/api/reconcile-transaction';
 
         $data = [
-            'api_key' => env('PESASWAP_API_KEY'),
-            'consumer_key' => env('PESASWAP_CONSUMER_KEY'),
+            'api_key' => config('pesaswap.api_key'),
+            'consumer_key' => config('pesaswap.consumer_key'),
             'transaction_external_id' => $transaction_external_id,
         ];
 
@@ -155,8 +163,8 @@ class Pesaswap
         $url = $this->base_url . '/api/payment/request';
 
         $data = [
-            'consumer_key' => env('PESASWAP_CONSUMER_KEY'),
-            'api_key' => env('PESASWAP_API_KEY'),
+            'consumer_key' => config('pesaswap.consumer_key'),
+            'api_key' => config('pesaswap.api_key'),
             'paybill_description' => $paybill_description,
             'description' => $desc,
             'range' => $range,
@@ -176,8 +184,8 @@ class Pesaswap
         $url = $this->base_url . '/api/payment/request/recurring/billing';
 
         $data = [
-            'consumer_key' => env('PESASWAP_CONSUMER_KEY'),
-            'api_key' => env('PESASWAP_API_KEY'),
+            'consumer_key' => config('pesaswap.consumer_key'),
+            'api_key' => $this->config('pesaswap.api_key'),
             'paybill_description' => $paybill_description,
             'description' => $description,
             'range' => $range,

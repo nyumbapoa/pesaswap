@@ -17,7 +17,7 @@ class PesaswapServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('nyumbapoa-pesaswap', function ($app) {
-            return new Mpesa;
+            return new Pesaswap;
         });
     }
 
@@ -37,7 +37,6 @@ class PesaswapServiceProvider extends ServiceProvider
 
             $this->commands([
                 InstallPesaswapPackage::class
-               // InstallMpesaPackage::class,
             ]);
         }
     }

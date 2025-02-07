@@ -8,18 +8,23 @@ use Illuminate\Support\Facades\Http;
 trait PesaswapHelper
 {
 
-    public $base_url;
+    public  $base_url;
     public $base_url_csharp;
+    public $api_key;
+    public $consumer_key;
 
     public function __construct()
     {
-        $this->base_url = env('PESASWAP_ENV') == 'live'
+        $this->base_url = config('pesaswap.environment') == 'live'
             ? 'https://www.pesaswap.com'
             : 'https://devpesaswap.azurewebsites.net';
 
-        $this->base_url_csharp = env('PESASWAP_ENV') == 'live'
+        $this->base_url_csharp = config('pesaswap.environment') == 'live'
             ? 'https://api.pesaswap.com'
             : 'https://devpesaswap-csharp.azurewebsites.net';
+
+        $this->api_key = config('pesaswap.api_key');
+        $this->consumer_key = config('pesaswap.consumer_key');
     }
 
     public function tokenization()
@@ -27,8 +32,8 @@ trait PesaswapHelper
         $url = $this->base_url_csharp . '/api/tokenization';
 
         $data = [
-            'ConsumerKey' => env('PESASWAP_CONSUMER_KEY'),
-            'ApiKey' => env('PESASWAP_API_KEY'),
+            'ConsumerKey' => config('pesaswap.consumer_key'),
+            'ApiKey' => config('pesaswap.api_key'),
         ];
 
         $response = Http::post($url, $data);
