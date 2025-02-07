@@ -14,6 +14,17 @@
       "email": "jnyakush99@gmail.com"
     }
   ],
+  "homepage": "https://github.com/nyumbapoa/pesaswap",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Nyumbapoa\\Pesaswap\\PesaswapServiceProvider"
+      ],
+      "aliases": {
+        "Pesaswap": " Nyumbapoa\\Pesaswap\\Facades\\Pesaswap"
+      }
+    }
+  },
   "require": {
     "php": "^8.0 | ^8.1 | ^8.2",
     "illuminate/support": "^8.0 | ^9.0 | ^10.0 | ^11.0",

@@ -14,6 +14,6 @@ class Pesaswap extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'jamesnyakush-pesaswap';
+        return 'nyumbapoa-pesaswap';
     }
 }
